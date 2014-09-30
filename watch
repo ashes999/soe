@@ -1,1 +1,2 @@
+#!/bin/sh
 coffee --watch --compile -o lib src
