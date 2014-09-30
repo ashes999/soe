@@ -1,1 +1,1 @@
-coffee --watch --compile -o bin src
+coffee --watch --compile -o lib src
