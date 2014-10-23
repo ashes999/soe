@@ -14,12 +14,18 @@ class window.CoreGame
     mapWidth = Math.ceil(@game.width / TILE_SIZE.width)
     mapHeight = Math.ceil(@game.height / TILE_SIZE.height)
     console.debug("Map is #{mapWidth}x#{mapHeight} tiles")
+    @collideTiles = @game.add.group()
     
     for y in [0 .. mapHeight]
       for x in [0 .. mapWidth]
           tile = game.add.sprite(game.world.centerX, game.world.centerY, 'top outside tiles')
           tile.x = x * TILE_SIZE.width
           tile.y = y * TILE_SIZE.height
+          if x == 0 || y == 0 || x == mapWidth - 1 || y == mapHeight - 1
+            tile.frame = 1
+            @game.physics.enable(tile, Phaser.Physics.ARCADE)
+            @collideTiles.add(tile)
+            tile.body.immovable = true
           
     @game.physics.startSystem(Phaser.Physics.ARCADE) # needed for velocity
     
@@ -54,3 +60,5 @@ class window.CoreGame
       
     @player.animations.stop() unless @cursors.up.isDown || @cursors.down.isDown ||
       @cursors.left.isDown || @cursors.right.isDown
+      
+    @game.physics.arcade.collide(@player, @collideTiles)
