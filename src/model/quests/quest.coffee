@@ -1,8 +1,13 @@
 window.Model ||= {}
 
+###
+# A basic quest (go somewhere and do something). Not a composite.
+# Base type with common attributes. Handles factory-like construction.
+# Delegates to specific types, eg. new IntroductionQuest
+###
 class window.Model.Quest
 
-  @validTypes = ['Introduction', 'Main', 'FinalBattle']
+  @validTypes = ['Introduction', 'FinalBattle', 'PowerUp']
   
   constructor: (@type) ->
   
@@ -12,9 +17,21 @@ class window.Model.Quest
 
     # Create based on type, eg. "Introduction" creates a new window.Model.IntroductionQuest    
     return new window.Model["#{type}Quest"]()
+
+  @createMainQuests: (intro, ending) ->
+    numSubQuests = 2 + Math.ceil(Math.random() * 3) # 3-5
+    console.log("#{numSubQuests} sub-quests")
+    
+    subQuests = []        
+    for i in [0 ... numSubQuests]
+      subQuest = window.Model.Quest.create('PowerUp')
+      subQuests.push(subQuest)
+      
+    return subQuests
   
+  # For debugging only. Remove it later.
   toString: () ->
-    @constructor.name
+    "#{@constructor.name}: #{@description}"
       
   ## private methods ##
   

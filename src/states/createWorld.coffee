@@ -6,11 +6,17 @@ class window.CreateWorld
     Math.seedrandom(@game.data.seed)
     
     intro = window.Model.Quest.create("Introduction")
-    mainQuest = window.Model.Quest.create("Main")
     ending = window.Model.Quest.create("FinalBattle")
-    quests = [intro, mainQuest, ending]
+    mainQuests = window.Model.Quest.createMainQuests(intro, ending)
+    
+    quests = []
+    quests.push(intro)
+    quests.push(q) for q, i in mainQuests
+    quests.push(ending)
+    
     @game.data.quests = quests
-    alert("Game quests are #{@game.data.quests}")
+    console.debug("Quests:")
+    console.debug("\t#{i + 1}: #{quest}") for quest, i in quests
     
     Math.seedrandom() # Be unpredictable now that generation is done
     #@game.state.start('coreGame')
