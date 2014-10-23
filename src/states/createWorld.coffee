@@ -5,9 +5,9 @@ class window.CreateWorld
     console.info("Game world: #{@game.data.seed}")    
     Math.seedrandom(@game.data.seed)
     
-    intro = window.Model.Quest.create("introduction")
-    mainQuest = window.Model.Quest.create("main quest")
-    ending = window.Model.Quest.create("final battle")
+    intro = window.Model.Quest.create("Introduction")
+    mainQuest = window.Model.Quest.create("Main")
+    ending = window.Model.Quest.create("FinalBattle")
     quests = [intro, mainQuest, ending]
     @game.data.quests = quests
     alert("Game quests are #{@game.data.quests}")

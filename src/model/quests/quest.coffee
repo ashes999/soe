@@ -1,10 +1,5 @@
 window.Model ||= {}
 
-
-###
-# Base type with common attributes. Handles factory-like construction.
-# Delegates to specific types, eg. new IntroductionQuest
-###
 class window.Model.Quest
 
   @validTypes = ['Introduction', 'Main', 'FinalBattle']
@@ -15,12 +10,12 @@ class window.Model.Quest
     # TODO: randomly create a type of this.
     validate(type)
 
-    # Create based on type, eg. "Introduction" creates a new IntroductionQuest    
-    return new window["#{type}Quest"]()
+    # Create based on type, eg. "Introduction" creates a new window.Model.IntroductionQuest    
+    return new window.Model["#{type}Quest"]()
   
   toString: () ->
-    @type
-  
+    @constructor.name
+      
   ## private methods ##
   
   validate = (type) ->
