@@ -1,4 +1,4 @@
-# [Play Now](http://ashes999.github.io/soe)
+# [Play Now](http://ashes999.github.io/sword-of-eman)
 
 **Note:** This is a highly-experimental early release version. Play at your own risk; it may be quite raw or buggy. (All graphics are subject to change before the first release.)
 
