@@ -12,5 +12,5 @@ window.onload = () ->
   @game.state.add('coreGame', new window.CoreGame)
   
   @game.data = {} # my game data
-  @game.state.start('createWorld')
+  @game.state.start('boot')
 

@@ -18,6 +18,11 @@ class window.Preloader
     
     # TitleScreen
     @game.load.image('logo', 'assets/graphics/ui/title.png')
+    
+    # Tiles and characters for core game
+    @game.load.spritesheet('top outside tiles', 'assets/graphics/top-down/outside.png', 64, 64)
+    @game.load.spritesheet('hero 1', 'assets/graphics/top-down/hero-1.png', 32, 32)
 
   create: () ->
-    @game.state.start('titleScreen')
+    #@game.state.start('titleScreen')
+    @game.state.start('createWorld')

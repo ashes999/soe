@@ -19,4 +19,4 @@ class window.CreateWorld
     console.debug("\t#{i + 1}: #{quest}") for quest, i in quests
     
     Math.seedrandom() # Be unpredictable now that generation is done
-    #@game.state.start('coreGame')
+    @game.state.start('coreGame')
