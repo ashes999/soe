@@ -1,5 +1,6 @@
-GAME_WIDTH = 1024
-GAME_HEIGHT = 768
+# TODO: 1024x768.
+GAME_WIDTH = 800
+GAME_HEIGHT = 600
 
 window.onload = () ->  
   @game = new Phaser.Game(GAME_WIDTH, GAME_HEIGHT, Phaser.CANVAS, '')
@@ -7,7 +8,9 @@ window.onload = () ->
   @game.state.add('boot', new window.Boot)
   @game.state.add('preLoader', new window.Preloader)
   @game.state.add('titleScreen', new window.TitleScreen)
+  @game.state.add('createWorld', new window.CreateWorld)
   @game.state.add('coreGame', new window.CoreGame)
   
-  @game.state.start('boot')
+  @game.data = {} # my game data
+  @game.state.start('createWorld')
 

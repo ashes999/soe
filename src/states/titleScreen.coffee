@@ -9,7 +9,7 @@ class window.TitleScreen
     @fadeOutTween = @game.add.tween(@blackout)
     @fadeOutTween.to({ alpha: 1 }, 1000, null)
     @fadeOutTween.onComplete.add(() ->
-      @game.state.start('coreGame')
+      @game.state.start('createWorld')
     , this)    
     
     fadeInTween = @game.add.tween(@blackout)
