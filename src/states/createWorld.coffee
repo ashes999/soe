@@ -1,9 +1,13 @@
+window.Model ||= {}
+
 class window.CreateWorld
 
-  create: () ->
+  create: () ->  
     @game.data.seed = 1
     console.info("Game world: #{@game.data.seed}")    
     Math.seedrandom(@game.data.seed)
+    
+    @game.data.world = window.Model.WorldGenerator.generate(2, 1)
     
     intro = window.Model.Quest.create("Introduction")
     ending = window.Model.Quest.create("FinalBattle")

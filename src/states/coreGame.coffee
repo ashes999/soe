@@ -18,9 +18,8 @@ class window.CoreGame
     , 5000)
     ## End Debugging ##
     
-    mapWidth = Math.ceil(@game.width / TILE_SIZE.width)
-    mapHeight = Math.ceil(@game.height / TILE_SIZE.height)
-    @_showMap(window.Model.MapGenerator.generate(mapWidth, mapHeight))
+    @_showMap(@game.data.world.currentMap)
+    console.debug("Showing map #{@game.data.world.currentMap.x}, #{@game.data.world.currentMap.y}")
           
     @game.physics.startSystem(Phaser.Physics.ARCADE) # needed for velocity
     
