@@ -2,6 +2,7 @@ class window.CoreGame
   # He has to feel fast, not sluggish. Fighting skill is big in this game.
   PLAYER_MOVE_SPEED = 256
   PLAYER_FRAME_RATE = 6
+  TILE_SIZE = { width: 32, height: 32 }
   
   create: () ->
     # TODO: world is only one map big. Make it bigger.
@@ -9,27 +10,21 @@ class window.CoreGame
     # TODO: data-driven. events drive map locations, which use template maps. OR,
     #       alternatively, generate everything with PCG factories
     #       (eg. MapMaker.Make("Meadow"), MapMaker.Make("Dungeon")
-        
-    TILE_SIZE = { width: 64, height: 64 }        
+    
+    ## Debugging only ##
+    @game.time.advancedTiming = true
+    window.setInterval(() =>
+      console.debug("#{@game.time.fps} FPS") unless @game.time.fps == 0
+    , 5000)
+    ## End Debugging ##
+    
     mapWidth = Math.ceil(@game.width / TILE_SIZE.width)
     mapHeight = Math.ceil(@game.height / TILE_SIZE.height)
-    console.debug("Map is #{mapWidth}x#{mapHeight} tiles")
-    @collideTiles = @game.add.group()
-    
-    for y in [0 .. mapHeight]
-      for x in [0 .. mapWidth]
-          tile = game.add.sprite(game.world.centerX, game.world.centerY, 'top outside tiles')
-          tile.x = x * TILE_SIZE.width
-          tile.y = y * TILE_SIZE.height
-          if x == 0 || y == 0 || x == mapWidth - 1 || y == mapHeight - 1
-            tile.frame = 1
-            @game.physics.enable(tile, Phaser.Physics.ARCADE)
-            @collideTiles.add(tile)
-            tile.body.immovable = true
+    @_showMap(window.Model.MapGenerator.generate(mapWidth, mapHeight))
           
     @game.physics.startSystem(Phaser.Physics.ARCADE) # needed for velocity
     
-    @player = game.add.sprite(game.world.centerX, game.world.centerY, 'hero 1')
+    @player = @game.add.sprite(game.world.centerX, game.world.centerY, 'hero 1')
     @player.animations.add('down', [0, 1, 2], PLAYER_FRAME_RATE, true)
     @player.animations.add('left', [3, 4, 5], PLAYER_FRAME_RATE, true)
     @player.animations.add('right', [6, 7, 8], PLAYER_FRAME_RATE, true)
@@ -37,7 +32,7 @@ class window.CoreGame
     @game.physics.enable(@player, Phaser.Physics.ARCADE)
     
     @game.camera.follow(@player)
-    @cursors = game.input.keyboard.createCursorKeys()
+    @cursors = @game.input.keyboard.createCursorKeys()
     
   update: () ->
     if @cursors.left.isDown
@@ -62,3 +57,18 @@ class window.CoreGame
       @cursors.left.isDown || @cursors.right.isDown
       
     @game.physics.arcade.collide(@player, @collideTiles)
+    
+  _showMap: (map) ->
+    console.debug("Map is #{map.width}x#{map.height} tiles")
+    @collideTiles = @game.add.group()
+    
+    for y in [0 ... map.height]
+      for x in [0 ... map.width]
+          tile = @game.add.sprite(game.world.centerX, game.world.centerY, 'top outside tiles')
+          tile.x = x * TILE_SIZE.width
+          tile.y = y * TILE_SIZE.height
+          if x == 0 || y == 0 || x == map.width - 1 || y == map.height - 1
+            tile.frame = 1
+            @game.physics.enable(tile, Phaser.Physics.ARCADE)
+            @collideTiles.add(tile)
+            tile.body.immovable = true
