@@ -80,8 +80,8 @@ class window.CoreGame
       t.destination.startY = playerY
       console.debug('****** Move done.')
       
-      # TODO: this could change for a side-view map
-      @game.state.start('coreGame')
+      # TODO: this could change to a different state for a side-view map
+      @game.state.start('titleScreen')
     , null, this)
     
   _showMap: (map) ->
