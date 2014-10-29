@@ -6,8 +6,23 @@
         <script src="lib/3rd-party/phaser.min.js"></script>
         <style>
           body {
-	        margin: 0;	        
-		  }
+	          margin: 0;	        
+		      }
+		      
+		      #console {
+  		      position: absolute;
+  		      left: 808px;
+  		      width: 400px;
+  		      border: 1px solid #ccc;
+  		      background: #eee;
+  		      display: block;
+  		      padding: 0px 8px 8px 8px;
+  		      color: #444;
+		      }
+		      
+		      #console p {
+		        margin: 8px 0px 0px;
+	        }
 	    </style>
     </head>
     <body>
@@ -44,7 +59,7 @@
       ]
     </div>
     
-    <div id="console" style="position: absolute; left: 808px; width: 400px; border: 1px solid #ccc; background: #eee; display: block; padding: 8px; color: #444;"></div>
+    <div id="console"></div>
     
     <!-- console -->
     <script type="text/javascript" src="lib/utils/console.js"></script>
