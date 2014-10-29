@@ -13,5 +13,3 @@ window.onload = () ->
   
   @game.data = {} # my game data
   @game.state.start('boot')
-  
-  fail()

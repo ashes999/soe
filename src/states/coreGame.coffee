@@ -66,7 +66,8 @@ class window.CoreGame
           tile = @game.add.sprite(game.world.centerX, game.world.centerY, 'top outside tiles')
           tile.x = x * TILE_SIZE.width
           tile.y = y * TILE_SIZE.height
-          if x == 0 || y == 0 || x == map.width - 1 || y == map.height - 1
+          tile.frame = map.get(x, y)
+          if (tile.frame > 0)
             tile.frame = 1
             @game.physics.enable(tile, Phaser.Physics.ARCADE)
             @collideTiles.add(tile)

@@ -7,7 +7,7 @@ class window.CreateWorld
     console.info("Game world: #{@game.data.seed}")    
     Math.seedrandom(@game.data.seed)
     
-    @game.data.world = window.Model.WorldGenerator.generate(2, 1)
+    @game.data.world = window.Model.WorldGenerator.generate(2, 2)
     
     intro = window.Model.Quest.create("Introduction")
     ending = window.Model.Quest.create("FinalBattle")
