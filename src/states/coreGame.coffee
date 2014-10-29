@@ -14,7 +14,7 @@ class window.CoreGame
     ## Debugging only ##
     @game.time.advancedTiming = true
     window.setInterval(() =>
-      console.debug("#{@game.time.fps} FPS") unless @game.time.fps == 0
+      console.info("#{@game.time.fps} FPS") unless @game.time.fps == 0
     , 5000)
     ## End Debugging ##
     
