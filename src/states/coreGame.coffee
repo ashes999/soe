@@ -19,11 +19,13 @@ class window.CoreGame
     ## End Debugging ##
     
     @_showMap(@game.data.world.currentMap)
-    console.debug("Showing map #{@game.data.world.currentMap.x}, #{@game.data.world.currentMap.y}")
+    console.debug("Showing map #{@currentMap.x}, #{@currentMap.y}")
           
     @game.physics.startSystem(Phaser.Physics.ARCADE) # needed for velocity
     
-    @player = @game.add.sprite(game.world.centerX, game.world.centerY, 'hero 1')
+    startX = @currentMap.startX || @game.world.centerX # default on new game
+    startY = @currentMap.startY || @game.world.centerY # default on new game
+    @player = @game.add.sprite(startX, startY, 'hero 1')
     @player.animations.add('down', [0, 1, 2], PLAYER_FRAME_RATE, true)
     @player.animations.add('left', [3, 4, 5], PLAYER_FRAME_RATE, true)
     @player.animations.add('right', [6, 7, 8], PLAYER_FRAME_RATE, true)
@@ -57,9 +59,47 @@ class window.CoreGame
       
     @game.physics.arcade.collide(@player, @collideTiles)
     
+    @game.physics.arcade.overlap(@player, @transitionTiles, (player, tile) ->
+      t = @currentMap.transitionAt(tile.x / TILE_SIZE.width, tile.y / TILE_SIZE.height)
+      throw "Can't find transition at #{tile.x / TILE_SIZE.width}, #{tile.y / TILE_SIZE.height}" if !t?
+      throw 'Transition from map to itself' if t.destination == @currentMap
+      
+      @game.data.world.currentMap = t.destination
+            
+      # Offset by one tile in the specified direction.
+      playerX = t.destX * TILE_SIZE.width
+      playerX += TILE_SIZE.width if t.direction == 'right'
+      playerX -= TILE_SIZE.width if t.direction == 'left'
+      
+      playerY = t.destY * TILE_SIZE.height
+      playerY += TILE_SIZE.height if t.direction == 'down'
+      playerY -= TILE_SIZE.height if t.direction == 'up'
+      
+      # Set starting location on the new map
+      t.destination.startX = playerX
+      t.destination.startY = playerY
+      console.debug('****** Move done.')
+      
+      # TODO: this could change for a side-view map
+      @game.state.start('coreGame')
+    , null, this)
+    
   _showMap: (map) ->
+    @currentMap = map
+    
     console.debug("Map is #{map.width}x#{map.height} tiles")
+    @transitionTiles.destroy if @transitionTiles?
+    @collideTiles.destroy if @collideTiles?
+    @tiles.destroy if @tiles?
+    
     @collideTiles = @game.add.group()
+    @collideTiles.enableBody = true
+    
+    # Everything not in collideTiles    
+    @tiles = @game.add.group()
+    
+    # stuff that has a transition on it
+    @transitionTiles = @game.add.group()
     
     for y in [0 ... map.height]
       for x in [0 ... map.width]
@@ -72,3 +112,24 @@ class window.CoreGame
             @game.physics.enable(tile, Phaser.Physics.ARCADE)
             @collideTiles.add(tile)
             tile.body.immovable = true
+          else
+            @tiles.add(tile)
+            
+    # For each transition, set up collision/overlap on the tile at that position
+    for t in map.transitions
+    
+      # tile X/Y are in tile indicies, while sprites are in pixels.
+      tiles = @tiles.filter((sprite, index, @tiles) -> return sprite.x == t.x * TILE_SIZE.width && sprite.y == t.y * TILE_SIZE.height)
+      # It's not in @tiles. Maybe it's already in @collideTiles?
+      if tiles.total == 0
+        tiles = @transitionTiles.filter((sprite, index, @transitionTiles) -> return sprite.x == t.x * TILE_SIZE.width && sprite.y == t.y * TILE_SIZE.height)
+      # Nope, there's a problem.
+      if tiles.total == 0
+        throw "Found no tiles at #{t.x}, #{t.y}"
+        
+      tile = tiles.first # guaranteed to be just one matching tile. More than one won't break anything.
+      @game.physics.enable(tile, Phaser.Physics.ARCADE)
+      @transitionTiles.add(tile)
+      tile.body.immovable = true
+      
+    console.debug("Total tiles: #{@collideTiles.total + @transitionTiles.total + @tiles.total}")

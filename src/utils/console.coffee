@@ -26,7 +26,7 @@ else
 window.console.debug = (message) ->
   if DEBUG_MODE
     window.console.olog(message)
-    log('#00f', message)
+    log('#888', message)
 
 window.console.error = (message) ->
   window.console.olog(message)
@@ -38,4 +38,6 @@ window.onerror = (message, url, lineNumber) ->
 window.console.info = (message) ->
   if DEBUG_MODE
     window.console.olog(message)
-    log('#888', message)
+    log('#00f', message)
+    
+window.console.log = window.console.debug

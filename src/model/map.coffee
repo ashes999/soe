@@ -18,9 +18,17 @@ class window.Model.Map
         current.push(tile)
       @tiles.push(current)
       
+    @transitions = []
+      
   get: (x, y) ->
     return @tiles[x][y]
     
   clear: (x, y) ->
     @tiles[x][y] = TILE_INDICIES['clear']
-    console.info("&nbsp;&nbsp;&nbsp;&nbsp;clearing #{x}, #{y} on #{@x}, #{@y}")
+    
+  addTransition: (t) ->
+    @transitions.push(t)
+    
+  transitionAt: (x, y) ->
+    return t for t in @transitions when t.x == x && t.y == y
+  
