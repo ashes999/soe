@@ -40,65 +40,14 @@
       [
       Sword of Eman v0.1.0
       | <a href="https://github.com/ashes999/sword-of-eman/issues/new" target="_blank">Report an Issue</a>
-      | <a href="" id="toggleConsole" onClick="toggleConsole(); return false;">Hide Console</a>
+      | <a href="" id="toggleConsole" onClick="window.toggleConsole(); return false;">Hide Console</a>
       ]
     </div>
     
     <div id="console" style="position: absolute; left: 808px; width: 400px; border: 1px solid #ccc; background: #eee; display: block; padding: 8px; color: #444;"></div>
-    </body>
-
+    
     <!-- console -->
-    <script type="text/javascript">
-      function toggleConsole() {
-        var console = document.getElementById("console");
-        var link = document.getElementById("toggleConsole");
-        var showIt = console.style.display == 'none';
-        
-        if (showIt) {
-          console.style.display = "block";
-          link.innerText = "Hide Console";
-        } else {
-          console.style.display = "none";
-          link.innerText = "Show Console";
-        }
-      }
-      
-      // all ur consonlez r belong 2 us ...
-      if (typeof console  != "undefined" && typeof console.log != 'undefined') {
-        console.olog = console.log;
-      } else {
-        console.olog = function() {};
-      }
-      
-      console.debug = function(message) {        
-        if (DEBUG_MODE) {
-          console.olog(message);
-          log('#00f', message)
-        }
-      };
-      
-      console.error = function(message) {
-        console.olog(message);
-        log('#f00', message);
-      }
-      
-      window.onerror = function(message, url, lineNumber) {
-        console.error(url + "\tline " + lineNumber + ":<br />" + message);        
-      }
-      
-      function log(color, message) {
-        var html = "<span style='color: " + color + ";'>" + message + "</span><br />";
-        document.getElementById("console").innerHTML += html;
-      }
-      
-      console.info = function(message) {
-        if (DEBUG_MODE) {
-          console.olog(message);
-          log('#888', message);
-        }
-      }
-      
-      // URL contains "debug" parameter with value
-      DEBUG_MODE = /[?&]debug=/.test(location.href);
-    </script>
+    <script type="text/javascript" src="lib/utils/console.js"></script>
+    
+    </body>
 </html>

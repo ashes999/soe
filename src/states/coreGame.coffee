@@ -12,10 +12,10 @@ class window.CoreGame
     #       (eg. MapMaker.Make("Meadow"), MapMaker.Make("Dungeon")
     
     ## Debugging only ##
-    @game.time.advancedTiming = true
-    window.setInterval(() =>
-      console.info("#{@game.time.fps} FPS") unless @game.time.fps == 0
-    , 5000)
+    #@game.time.advancedTiming = true
+    #window.setInterval(() =>
+    #  console.info("#{@game.time.fps} FPS") unless @game.time.fps == 0
+    #, 5000)
     ## End Debugging ##
     
     @_showMap(@game.data.world.currentMap)
