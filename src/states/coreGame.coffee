@@ -25,6 +25,7 @@ class window.CoreGame
     
     startX = @currentMap.startX || @game.world.centerX # default on new game
     startY = @currentMap.startY || @game.world.centerY # default on new game
+    
     @player = @game.add.sprite(startX, startY, 'hero 1')
     @player.animations.add('down', [0, 1, 2], PLAYER_FRAME_RATE, true)
     @player.animations.add('left', [3, 4, 5], PLAYER_FRAME_RATE, true)
@@ -59,30 +60,7 @@ class window.CoreGame
       
     @game.physics.arcade.collide(@player, @collideTiles)
     
-    @game.physics.arcade.overlap(@player, @transitionTiles, (player, tile) ->
-      t = @currentMap.transitionAt(tile.x / TILE_SIZE.width, tile.y / TILE_SIZE.height)
-      throw "Can't find transition at #{tile.x / TILE_SIZE.width}, #{tile.y / TILE_SIZE.height}" if !t?
-      throw 'Transition from map to itself' if t.destination == @currentMap
-      
-      @game.data.world.currentMap = t.destination
-            
-      # Offset by one tile in the specified direction.
-      playerX = t.destX * TILE_SIZE.width
-      playerX += TILE_SIZE.width if t.direction == 'right'
-      playerX -= TILE_SIZE.width if t.direction == 'left'
-      
-      playerY = t.destY * TILE_SIZE.height
-      playerY += TILE_SIZE.height if t.direction == 'down'
-      playerY -= TILE_SIZE.height if t.direction == 'up'
-      
-      # Set starting location on the new map
-      t.destination.startX = playerX
-      t.destination.startY = playerY
-      console.debug('****** Move done.')
-      
-      # TODO: this could change to a different state for a side-view map
-      @game.state.start('titleScreen')
-    , null, this)
+    @game.physics.arcade.overlap(@player, @transitionTiles, @_checkAndTransitionPlayer, null, this)
     
   _showMap: (map) ->
     @currentMap = map
@@ -132,4 +110,26 @@ class window.CoreGame
       @transitionTiles.add(tile)
       tile.body.immovable = true
       
-    console.debug("Total tiles: #{@collideTiles.total + @transitionTiles.total + @tiles.total}")
+  _checkAndTransitionPlayer: (player, tile) ->
+      t = @currentMap.transitionAt(tile.x / TILE_SIZE.width, tile.y / TILE_SIZE.height)
+      throw "Can't find transition at #{tile.x / TILE_SIZE.width}, #{tile.y / TILE_SIZE.height}" if !t?
+      throw 'Transition from map to itself' if t.destination == @currentMap
+      console.debug("Transitioning from #{@currentMap.toString()} to #{t.destination.toString()}; dir=#{t.direction}; source = #{t.x}, #{t.y}")
+      
+      @game.data.world.currentMap = t.destination
+            
+      # Offset by one tile in the specified direction.
+      playerX = t.destX * TILE_SIZE.width
+      playerX += TILE_SIZE.width if t.direction == 'right'
+      playerX -= TILE_SIZE.width if t.direction == 'left'
+      
+      playerY = t.destY * TILE_SIZE.height
+      playerY += TILE_SIZE.height if t.direction == 'down'
+      playerY -= TILE_SIZE.height if t.direction == 'up'
+      
+      # Set starting location on the new map
+      t.destination.startX = playerX
+      t.destination.startY = playerY
+     
+      @game.state.start('coreGame')
+

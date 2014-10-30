@@ -24,6 +24,8 @@ class window.Model.World
     for x in [0 ... @width]
       for y in [0 ... @height]
         m = @maps[x][y]
+        # Note: this connects everything twice, eg. (0, 0) -> (1, 0) and (1, 0) -> (0, 0)
+        # Map.addTransition handles not adding duplicates of existing transitions
         @_connect('left', m, @maps[x - 1][y]) if x > 0
         @_connect('right', m, @maps[x + 1][y]) if x < @width - 1
         @_connect('up', m, @maps[x][y - 1]) if y > 0
@@ -37,18 +39,18 @@ class window.Model.World
     opposite_coordinates = @_getCoordinates(destination, opposite_direction)
     
     @_addTransition(source, coordinates.x, coordinates.y, destination, opposite_coordinates.x, opposite_coordinates.y, direction)
-    @_addTransition(destination, opposite_coordinates.x, opposite_coordinates.y, source, coordinates.x, coordinates.y, direction)
+    @_addTransition(destination, opposite_coordinates.x, opposite_coordinates.y, source, coordinates.x, coordinates.y, opposite_direction)
     
     if (direction == 'left' || direction == 'right')
       @_addTransition(source, coordinates.x, coordinates.y + 1, destination, opposite_coordinates.x, opposite_coordinates.y, direction) if coordinates.y < source.height - 1
-      @_addTransition(source, coordinates.x, coordinates.y - 1, destination, opposite_coordinates.x, opposite_coordinates.y, direction) if coordinates.y > 0        
-      @_addTransition(destination, opposite_coordinates.x, opposite_coordinates.y + 1, source, coordinates.x, coordinates.y, opposite_direction) if opposite_coordinates.y < destination.height - 1
+      @_addTransition(source, coordinates.x, coordinates.y - 1, destination, opposite_coordinates.x, opposite_coordinates.y, opposite_direction) if coordinates.y > 0        
+      @_addTransition(destination, opposite_coordinates.x, opposite_coordinates.y + 1, source, coordinates.x, coordinates.y, direction) if opposite_coordinates.y < destination.height - 1
       @_addTransition(destination, opposite_coordinates.x, opposite_coordinates.y - 1, source, coordinates.x, coordinates.y, opposite_direction) if opposite_coordinates.y > 0
     
     if (direction == 'up' || direction == 'down')
       @_addTransition(source, coordinates.x + 1, coordinates.y, destination, opposite_coordinates.x, opposite_coordinates.y, direction) if coordinates.x < source.width - 1
-      @_addTransition(source, coordinates.x - 1, coordinates.y, destination, opposite_coordinates.x, opposite_coordinates.y, direction) if coordinates.x > 0        
-      @_addTransition(destination, opposite_coordinates.x + 1, opposite_coordinates.y, source, coordinates.x, coordinates.y, opposite_direction) if opposite_coordinates.x < destination.width - 1
+      @_addTransition(source, coordinates.x - 1, coordinates.y, destination, opposite_coordinates.x, opposite_coordinates.y, opposite_direction) if coordinates.x > 0        
+      @_addTransition(destination, opposite_coordinates.x + 1, opposite_coordinates.y, source, coordinates.x, coordinates.y, direction) if opposite_coordinates.x < destination.width - 1
       @_addTransition(destination, opposite_coordinates.x - 1, opposite_coordinates.y, source, coordinates.x, coordinates.y, opposite_direction) if opposite_coordinates.x > 0
 
   _oppositeOf: (direction) ->

@@ -12,6 +12,9 @@ window.toggleConsole = ->
     console.style.display = 'none'
     link.innerText = 'Show Console'
 
+window.clearConsole = ->
+  document.getElementById('console').innerHTML = ''
+
 # Take over console.log, console.debug, console.error, and console.info
 # Also take over window.onError to log other uncaught errors to the console
 log = (color, message) ->
