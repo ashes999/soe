@@ -68,5 +68,6 @@ class window.Model.World
   # Clears a square on <map> at <x, y> and creates a transition to <target>.
   _addTransition: (map, x, y, target, targetX, targetY, direction) ->
     map.clear(x, y)
-    map.addTransition(new window.Model.Events.MapTransition(x, y, target, targetX, targetY, direction))
+    t = new (Classes.get('Transition'))(x, y, target, targetX, targetY, direction)
+    map.addTransition(t)
   
