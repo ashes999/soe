@@ -20,7 +20,7 @@ class window.Model.Quest
 
   @createMainQuests: (intro, ending) ->
     numSubQuests = 2 + Math.ceil(Math.random() * 3) # 3-5
-    console.log("#{numSubQuests} sub-quests")
+    console.debug("#{numSubQuests} sub-quests")
     
     subQuests = []        
     for i in [0 ... numSubQuests]

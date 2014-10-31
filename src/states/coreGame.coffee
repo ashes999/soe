@@ -14,12 +14,11 @@ class window.CoreGame
     ## Debugging only ##
     #@game.time.advancedTiming = true
     #window.setInterval(() =>
-    #  console.info("#{@game.time.fps} FPS") unless @game.time.fps == 0
+    #  console.log("#{@game.time.fps} FPS") unless @game.time.fps == 0
     #, 5000)
     ## End Debugging ##
     
     @_showMap(@game.data.world.currentMap)
-    console.debug("Showing map #{@currentMap.x}, #{@currentMap.y}")
           
     @game.physics.startSystem(Phaser.Physics.ARCADE) # needed for velocity
     
@@ -65,7 +64,6 @@ class window.CoreGame
   _showMap: (map) ->
     @currentMap = map
     
-    console.debug("Map is #{map.width}x#{map.height} tiles")
     @transitionTiles.destroy if @transitionTiles?
     @collideTiles.destroy if @collideTiles?
     @tiles.destroy if @tiles?
@@ -114,7 +112,6 @@ class window.CoreGame
       t = @currentMap.transitionAt(tile.x / TILE_SIZE.width, tile.y / TILE_SIZE.height)
       throw "Can't find transition at #{tile.x / TILE_SIZE.width}, #{tile.y / TILE_SIZE.height}" if !t?
       throw 'Transition from map to itself' if t.destination == @currentMap
-      console.debug("Transitioning from #{@currentMap.toString()} to #{t.destination.toString()}; dir=#{t.direction}; source = #{t.x}, #{t.y}")
       
       @game.data.world.currentMap = t.destination
             
