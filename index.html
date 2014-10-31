@@ -30,6 +30,9 @@
     <!-- third-party stuff -->
     <script type="text/javascript" src="lib/3rd-party/seedrandom.min.js"></script>
     
+    <!-- for namespace/package organization -->
+    <script type="text/javascript" src="lib/utils/classLocator.js"></script>
+    
     <!-- model classes -->
     <script type="text/javascript" src="lib/model/quests/quest.js"></script>
     <script type="text/javascript" src="lib/model/quests/introductionQuest.js"></script>
@@ -53,11 +56,9 @@
     <script type="text/javascript" src="lib/main.js"></script>
 
     <div style="position: absolute; top: 601px;">
-      [
-      Sword of Eman v0.1.0
-      | <a href="https://github.com/ashes999/sword-of-eman/issues/new" target="_blank">Report an Issue</a>
+      <a href="https://github.com/ashes999/sword-of-eman/issues/new" target="_blank">Report an Issue</a>
       | <a href="" id="toggleConsole" onClick="window.toggleConsole(); return false;">Hide Console</a>
-      ]
+      | <a href="" onClick="window.clearConsole(); return false;">Clear Console</a>
     </div>
     
     <!-- console -->
