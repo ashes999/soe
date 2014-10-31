@@ -29,9 +29,10 @@ class window.Model.Map
   addTransition: (t) ->
     dupe = e for e in @transitions when e.x == t.x && e.y == t.y
     if dupe?
-      console.debug("Transition already exists on #{this} at #{dupe.x}, #{dupe.y} (d=#{dupe.direction}); not adding new transition with d=#{t.direction}")
+      #console.debug("Transition already exists on #{this} at #{dupe.x}, #{dupe.y} (d=#{dupe.direction}); not adding new transition with d=#{t.direction}")
     else
       @transitions.push(t)
+      console.log("Adding transition to #{this} at #{t.x}, #{t.y}: #{t.direction}")
     
   transitionAt: (x, y) ->
     return t for t in @transitions when t.x == x && t.y == y

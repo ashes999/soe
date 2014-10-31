@@ -43,14 +43,14 @@ class window.Model.World
     
     if (direction == 'left' || direction == 'right')
       @_addTransition(source, coordinates.x, coordinates.y + 1, destination, opposite_coordinates.x, opposite_coordinates.y, direction) if coordinates.y < source.height - 1
-      @_addTransition(source, coordinates.x, coordinates.y - 1, destination, opposite_coordinates.x, opposite_coordinates.y, opposite_direction) if coordinates.y > 0        
-      @_addTransition(destination, opposite_coordinates.x, opposite_coordinates.y + 1, source, coordinates.x, coordinates.y, direction) if opposite_coordinates.y < destination.height - 1
+      @_addTransition(source, coordinates.x, coordinates.y - 1, destination, opposite_coordinates.x, opposite_coordinates.y, direction) if coordinates.y > 0        
+      @_addTransition(destination, opposite_coordinates.x, opposite_coordinates.y + 1, source, coordinates.x, coordinates.y, opposite_direction) if opposite_coordinates.y < destination.height - 1
       @_addTransition(destination, opposite_coordinates.x, opposite_coordinates.y - 1, source, coordinates.x, coordinates.y, opposite_direction) if opposite_coordinates.y > 0
     
     if (direction == 'up' || direction == 'down')
       @_addTransition(source, coordinates.x + 1, coordinates.y, destination, opposite_coordinates.x, opposite_coordinates.y, direction) if coordinates.x < source.width - 1
-      @_addTransition(source, coordinates.x - 1, coordinates.y, destination, opposite_coordinates.x, opposite_coordinates.y, opposite_direction) if coordinates.x > 0        
-      @_addTransition(destination, opposite_coordinates.x + 1, opposite_coordinates.y, source, coordinates.x, coordinates.y, direction) if opposite_coordinates.x < destination.width - 1
+      @_addTransition(source, coordinates.x - 1, coordinates.y, destination, opposite_coordinates.x, opposite_coordinates.y, direction) if coordinates.x > 0        
+      @_addTransition(destination, opposite_coordinates.x + 1, opposite_coordinates.y, source, coordinates.x, coordinates.y, opposite_direction) if opposite_coordinates.x < destination.width - 1
       @_addTransition(destination, opposite_coordinates.x - 1, opposite_coordinates.y, source, coordinates.x, coordinates.y, opposite_direction) if opposite_coordinates.x > 0
 
   _oppositeOf: (direction) ->
