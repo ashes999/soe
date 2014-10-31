@@ -1,5 +1,1 @@
-# Everything in lib, except 3rd-party.
-lib/**/*
-lib/main.js
-!lib/3rd-party/
 *~
