@@ -32,10 +32,27 @@ class window.CoreGame
     @player.animations.add('up', [9, 10, 11], PLAYER_FRAME_RATE, true)
     @game.physics.enable(@player, Phaser.Physics.ARCADE)
     
+    # Fade out and in
+    @blackout = @game.add.sprite(0, 0, 'blackout')
+    
+    @fadeOutTween = @game.add.tween(@blackout)
+    @fadeOutTween.to({ alpha: 1 }, 1000, null)
+    @fadeOutTween.onComplete.add(() ->
+      @game.state.start('coreGame')
+    , this)    
+    
+    fadeInTween = @game.add.tween(@blackout)
+    fadeInTween.to({ alpha: 0 }, 1000, null)
+    fadeInTween.start()
+    
     @game.camera.follow(@player)
     @cursors = @game.input.keyboard.createCursorKeys()
     
   update: () ->
+    if @blackout.alpha > 0
+      @player.body.velocity.x = @player.body.velocity.y = 0
+      return
+    
     if @cursors.left.isDown
       @player.body.velocity.x = -1 * PLAYER_MOVE_SPEED;
       @player.animations.play('left')
@@ -128,5 +145,6 @@ class window.CoreGame
       t.destination.startX = playerX
       t.destination.startY = playerY
      
-      @game.state.start('coreGame')
+      #@game.state.start('coreGame')
+      @fadeOutTween.start() unless @blackout.alpha > 0
 

@@ -1,7 +1,7 @@
 class window.TitleScreen
 
   create: () ->
-    logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo')
+    logo = @game.add.sprite(@game.world.centerX, @game.world.centerY, 'logo')
     logo.anchor.setTo(0.5, 0.5)
     
     @blackout = @game.add.sprite(0, 0, 'blackout')
@@ -17,5 +17,5 @@ class window.TitleScreen
     fadeInTween.start()
     
   update: () ->       
-    if (game.input.activePointer.isDown && @blackout.alpha == 0)
+    if (@game.input.activePointer.isDown && @blackout.alpha == 0)
       @fadeOutTween.start()
