@@ -7,8 +7,6 @@ class window.CreateWorld
     console.info("Game world: #{@game.data.seed}")    
     Math.seedrandom(@game.data.seed)
     
-    @game.data.world = window.Model.WorldGenerator.generate(2, 2)
-    
     intro = window.Model.Quest.create("Introduction")
     ending = window.Model.Quest.create("FinalBattle")
     mainQuests = window.Model.Quest.createMainQuests(intro, ending)
@@ -21,6 +19,9 @@ class window.CreateWorld
     @game.data.quests = quests
     console.debug("Quests:")
     console.debug("\t#{i + 1}: #{quest}") for quest, i in quests
+
+    @game.data.world = window.Model.WorldGenerator.generate(quests.length, quests.length)
+    console.debug("Created a world of #{quests.length}^2 maps")
     
     Math.seedrandom() # Be unpredictable now that generation is done
     @game.state.start('coreGame')
