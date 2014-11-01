@@ -8,6 +8,8 @@ TILE_INDICIES = {
 class window.Model.Map
   constructor: (@width, @height) ->
     @tiles = []
+    @objects = [] # solid objects
+    
     for x in [0 ... @width]
       current = []
       # Tile data is just the image frame
@@ -30,6 +32,9 @@ class window.Model.Map
     dupe = e for e in @transitions when e.x == t.x && e.y == t.y
     if !dupe?      
       @transitions.push(t)
+    
+  addObject: (o) ->
+    @objects.push(o)
     
   transitionAt: (x, y) ->
     return t for t in @transitions when t.x == x && t.y == y

@@ -43,4 +43,8 @@ window.console.info = (message) ->
     window.console.olog(message)
     log('#00f', message)
     
-window.console.log = window.console.debug
+window.console.log = (message) ->
+  if DEBUG_MODE
+    window.console.olog(message)
+    log('#444', message)
+

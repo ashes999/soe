@@ -22,6 +22,7 @@ class window.Preloader
     # Tiles and characters for core game
     @game.load.spritesheet('top outside tiles', 'assets/graphics/top-down/outside.png', 32, 32)
     @game.load.spritesheet('hero 1', 'assets/graphics/top-down/hero-1.png', 32, 32)
+    @game.load.spritesheet('house 1', 'assets/graphics/top-down/house-1.png')
 
   create: () ->
     #@game.state.start('titleScreen')

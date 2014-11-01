@@ -3,7 +3,7 @@ class window.CoreGame
   PLAYER_MOVE_SPEED = 256
   PLAYER_FRAME_RATE = 6
   TILE_SIZE = { width: 32, height: 32 }
-  
+
   create: () ->
     # TODO: world is only one map big. Make it bigger.
     # TODO: map is only as big as your screen. Make it bigger.
@@ -75,6 +75,7 @@ class window.CoreGame
       @cursors.left.isDown || @cursors.right.isDown
       
     @game.physics.arcade.collide(@player, @collideTiles)
+    @game.physics.arcade.collide(@player, @objects)
     
     @game.physics.arcade.overlap(@player, @transitionTiles, @_checkAndTransitionPlayer, null, this)
     
@@ -94,6 +95,8 @@ class window.CoreGame
     # stuff that has a transition on it
     @transitionTiles = @game.add.group()
     
+    ## setup tiles
+    
     for y in [0 ... map.height]
       for x in [0 ... map.width]
           tile = @game.add.sprite(game.world.centerX, game.world.centerY, 'top outside tiles')
@@ -108,6 +111,8 @@ class window.CoreGame
           else
             @tiles.add(tile)
             
+    ## setup transitions
+    
     # For each transition, set up collision/overlap on the tile at that position
     for t in map.transitions
     
@@ -124,6 +129,14 @@ class window.CoreGame
       @game.physics.enable(tile, Phaser.Physics.ARCADE)
       @transitionTiles.add(tile)
       tile.body.immovable = true
+      
+    ## create objects
+    @objects = @game.add.group()
+    @objects.enableBody = true
+    
+    for o in map.objects
+      o = @objects.create(o.x * TILE_SIZE.width, o.y * TILE_SIZE.height, o.image)
+      o.body.immovable = true
       
   _checkAndTransitionPlayer: (player, tile) ->
       t = @currentMap.transitionAt(tile.x / TILE_SIZE.width, tile.y / TILE_SIZE.height)
