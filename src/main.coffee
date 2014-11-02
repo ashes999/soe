@@ -1,4 +1,5 @@
-# TODO: 1024x768.
+# TODO: check average screen size and increase to 1024x768.
+# Note: we need that console for troubleshooting (currently 400px wide).
 GAME_WIDTH = 800
 GAME_HEIGHT = 600
 

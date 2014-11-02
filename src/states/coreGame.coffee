@@ -5,12 +5,7 @@ class window.CoreGame
   TILE_SIZE = { width: 32, height: 32 }
 
   create: () ->
-    # TODO: world is only one map big. Make it bigger.
-    # TODO: map is only as big as your screen. Make it bigger.
-    # TODO: data-driven. events drive map locations, which use template maps. OR,
-    #       alternatively, generate everything with PCG factories
-    #       (eg. MapMaker.Make("Meadow"), MapMaker.Make("Dungeon")
-    
+    # TODO: map is only as big as your screen. Make it bigger.   
     ## Debugging only ##
     #@game.time.advancedTiming = true
     #window.setInterval(() =>

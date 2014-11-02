@@ -12,7 +12,7 @@ class window.Model.Quest
   constructor: (@type) ->
   
   @create: (type) ->
-    # TODO: randomly create a type of this.
+    # TODO: randomly create a variation of this.
     validate(type)
 
     # Create based on type, eg. "Introduction" creates a new window.Model.IntroductionQuest    

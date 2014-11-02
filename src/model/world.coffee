@@ -22,8 +22,7 @@ class window.Model.World
     @_connectMaps()
 
     # Set the starting map.
-    # TODO: make this a specific map.
-    @currentMap = @maps[0][0]
+    @currentMap = @maps[townX][townY]
     
   # Connect every map to every other adjacent map
   _connectMaps: () ->

@@ -17,8 +17,7 @@ class window.Model.MapGenerator
     
   @_addHouse: (map) ->
     # NB: house-1 is 144x144px. Pick smartly the location. 
-    # This may be in a wall.
+    # TODO: This may be in a wall, or blocking an exit.
     x = Math.floor(Math.random() * (map.width / 2))
     y = Math.floor(Math.random() * (map.height / 2))
-    map.addObject(new window.Model.Object('house 1', x, y))
-    console.log("T at #{x}, #{y}")
+    map.addObject(new window.Model.Object('house 1', x, y))    
