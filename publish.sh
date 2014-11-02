@@ -1,6 +1,6 @@
 #!/bin/sh
 # change branch
-git checkout gh-pages
+git checkout -f gh-pages
 # synch gh-pages
 git rebase master
 # publish
