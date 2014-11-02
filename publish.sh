@@ -1,9 +1,5 @@
 #!/bin/sh
-# change branch
-git checkout -f gh-pages
-# synch gh-pages
-git rebase master
-# publish
+# Deletes and re-creates gh-pages. Nothing else works.
+git push origin --delete gh-pages
 git push origin gh-pages
-# switch back to master
-git checkout master
+
