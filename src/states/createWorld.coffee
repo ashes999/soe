@@ -3,7 +3,11 @@ window.Model ||= {}
 class window.CreateWorld
 
   create: () ->
-    @game.data.seed = 1
+    # Check for an integer seed as a URL paramter
+    paramSeed = @game.net.getQueryString('universe')
+    paramSeed = parseInt(paramSeed, 10) unless !paramSeed?
+    paramSeed = null if isNaN(paramSeed) || paramSeed < 0
+    @game.data.seed = paramSeed || 1
     console.info("Game world: #{@game.data.seed}") 
 
     text = @game.add.text(0, 0, '', { fill: '#fff', font: '72px Arial' })
