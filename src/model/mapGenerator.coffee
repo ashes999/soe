@@ -3,13 +3,15 @@ window.Model ||= {}
 class window.Model.MapGenerator
   @validTypes = ['wilderness', 'town']
   
-  @generate: (width, height, type) -> # in tiles
+  @generate: (width, height, type, x, y) -> # in tiles
     @_validateType(type)
     toReturn = new window.Model.Map(width, height) # empty field
     
     if (type == 'town')
       @_addHouse(toReturn)
       
+    toReturn.x = x
+    toReturn.y = y
     return toReturn
     
   @_validateType: (type) ->

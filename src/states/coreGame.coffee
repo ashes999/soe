@@ -39,6 +39,9 @@ class window.CoreGame
     fadeInTween = @game.add.tween(@blackout)
     fadeInTween.to({ alpha: 0 }, 1000, null)
     fadeInTween.start()
+    fadeInTween.onComplete.add(() ->
+      @transitioning = false
+    , this)
     
     @game.camera.follow(@player)
     @cursors = @game.input.keyboard.createCursorKeys()
@@ -134,12 +137,13 @@ class window.CoreGame
       o.body.immovable = true
       
   _checkAndTransitionPlayer: (player, tile) ->
+      return if @transitioning == true
       t = @currentMap.transitionAt(tile.x / TILE_SIZE.width, tile.y / TILE_SIZE.height)
       throw "Can't find transition at #{tile.x / TILE_SIZE.width}, #{tile.y / TILE_SIZE.height}" if !t?
       throw 'Transition from map to itself' if t.destination == @currentMap
-      
       @game.data.world.currentMap = t.destination
-            
+      @transitioning = true
+      
       # Offset by one tile in the specified direction.
       playerX = t.destX * TILE_SIZE.width
       playerX += TILE_SIZE.width if t.direction == 'right'
@@ -153,6 +157,5 @@ class window.CoreGame
       t.destination.startX = playerX
       t.destination.startY = playerY
      
-      #@game.state.start('coreGame')
-      @fadeOutTween.start() unless @blackout.alpha > 0
-
+      @fadeOutTween.start() # leads to: @game.state.start('coreGame')
+      

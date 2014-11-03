@@ -6,9 +6,7 @@ class window.Model.World
     for x in [0 ... @width]
       current = []      
       for y in [0 ... @height]
-        map = window.Model.MapGenerator.generate(25, 19, 'wilderness')
-        map.x = x
-        map.y = y
+        map = window.Model.MapGenerator.generate(25, 19, 'wilderness', x, y)
         current.push(map)
         
       @maps.push(current)
@@ -17,7 +15,7 @@ class window.Model.World
     townY = Math.floor(Math.random() * @height)
     
     console.debug("Town generated at #{townX}, #{townY}")
-    @maps[townX][townY] = window.Model.MapGenerator.generate(25, 19, 'town')
+    @maps[townX][townY] = window.Model.MapGenerator.generate(25, 19, 'town', townX, townY)
 
     @_connectMaps()
 
