@@ -2,7 +2,8 @@ class window.CoreGame
   # He has to feel fast, not sluggish. Fighting skill is big in this game.
   PLAYER_MOVE_SPEED = 256
   PLAYER_FRAME_RATE = 6
-  TILE_SIZE = { width: 32, height: 32 }
+  
+  TILE_SIZE = window.Model.MapGenerator.TILE_SIZE
 
   create: () ->
     # TODO: map is only as big as your screen. Make it bigger.   
