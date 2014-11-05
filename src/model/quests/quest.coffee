@@ -1,11 +1,11 @@
 window.Model ||= {}
 
-###
-# A basic quest (go somewhere and do something). Not a composite.
-# Base type with common attributes. Handles factory-like construction.
-# Delegates to specific types, eg. new IntroductionQuest
-###
-class window.Model.Quest
+window.Classes.register('soe.model.model.quests.Quest', class Quest
+  ###
+  # A basic quest (go somewhere and do something). Not a composite.
+  # Base type with common attributes. Handles factory-like construction.
+  # Delegates to specific types, eg. new IntroductionQuest
+  ###
 
   @validTypes = ['Introduction', 'FinalBattle', 'PowerUp']
   
@@ -24,7 +24,7 @@ class window.Model.Quest
     
     subQuests = []        
     for i in [0 ... numSubQuests]
-      subQuest = window.Model.Quest.create('PowerUp')
+      subQuest = Quest.create('PowerUp')
       subQuests.push(subQuest)
       
     return subQuests
@@ -37,3 +37,6 @@ class window.Model.Quest
   
   validate = (type) ->
     throw "Invalid quest of type '#{type}'" if type not in Quest.validTypes
+)
+
+window.Model.Quest = Quest

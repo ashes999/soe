@@ -1,4 +1,5 @@
 window.Model ||= {}
+window.Model.Quest ||= {}
 
 class window.CreateWorld
 
