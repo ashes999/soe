@@ -1,8 +1,5 @@
-Quest = window.Classes.get('Quest')
+window.Model ||= {}
 
-window.Classes.register('soe.model.quests.PowerUpQuest', class PowerUpQuest extends Quest
+class window.Model.PowerUpQuest extends window.Model.Quest
   constructor: () ->    
     @description = 'You power up your weapon by travelling to a location.'
-)
-
-window.Model.PowerUpQuest = PowerUpQuest
