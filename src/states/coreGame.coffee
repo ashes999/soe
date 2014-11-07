@@ -108,23 +108,24 @@ class window.CoreGame
             @collideTiles.add(tile)
             tile.body.immovable = true
           else
+            # non-collidables
             @tiles.add(tile)
-            
-    ## setup transitions
     
+    ## setup transitions    
     # For each transition, set up collision/overlap on the tile at that position
     for t in map.transitions
     
-      # tile X/Y are in tile indicies, while sprites are in pixels.
+      # tile X/Y are in tile indicies, while sprites are in pixels.      
       tiles = @tiles.filter((sprite, index, @tiles) -> return sprite.x == t.x * TILE_SIZE.width && sprite.y == t.y * TILE_SIZE.height)
+      
       # It's not in @tiles. Maybe it's already in @collideTiles?
       if tiles.total == 0
         tiles = @transitionTiles.filter((sprite, index, @transitionTiles) -> return sprite.x == t.x * TILE_SIZE.width && sprite.y == t.y * TILE_SIZE.height)
       # Nope, there's a problem.
       if tiles.total == 0
-        throw "Found no tiles at #{t.x}, #{t.y}"
+        throw "Found no tiles at #{t.x}, #{t.y} although there's a transition there."
         
-      tile = tiles.first # guaranteed to be just one matching tile. More than one won't break anything.
+      tile = tiles.first # guaranteed to be just one matching tile. More than one won't break anything since coordinates line up.
       @game.physics.enable(tile, Phaser.Physics.ARCADE)
       @transitionTiles.add(tile)
       tile.body.immovable = true
