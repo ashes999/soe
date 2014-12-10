@@ -1,4 +1,4 @@
-package;
+package deenGames.swordOfEman.state;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -6,11 +6,12 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
-
+import flixel.util.FlxColor;
+import flixel.plugin.MouseEventManager;
 /**
  * A FlxState which can be used for the game's menu.
  */
-class MenuState extends FlxState
+class TitleScreenState extends FlxState
 {
 	/**
 	 * Function that is called up when to state is created to set it up.
@@ -22,6 +23,8 @@ class MenuState extends FlxState
     sprite.x  = (FlxG.width - sprite.width) / 2;
     sprite.y = (FlxG.height - sprite.height) / 2;
 		super.create();
+
+		MouseEventManager.add(sprite, null, fadeOut);
 	}
 
 	/**
@@ -39,5 +42,15 @@ class MenuState extends FlxState
 	override public function update():Void
 	{
 		super.update();
+	}
+
+	private function fadeOut(sprite:FlxSprite) : Void
+	{
+		FlxG.camera.fade(FlxColor.BLACK, 0.5, false, createGame);
+	}
+
+	private function createGame() : Void
+	{
+		FlxG.switchState(new deenGames.swordOfEman.state.CreateGameState());
 	}
 }

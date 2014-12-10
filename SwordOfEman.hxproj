@@ -4,35 +4,35 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="Project.xml" />
-    <movie fps="60" />
-    <movie width="640" />
-    <movie height="480" />
+    <movie path="project.xml" />
+    <movie fps="30" />
+    <movie width="1024" />
+    <movie height="768" />
     <movie version="3" />
     <movie minorVersion="0" />
     <movie platform="NME" />
     <movie background="#FFFFFF" />
+    <movie preferredSDK=";3;" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="source" />
+    <class path="Source" />
   </classpaths>
   <!-- Build options -->
   <build>
     <option directives="" />
     <option flashStrict="False" />
-    <option mainClass="Test" />
+    <option mainClass="com.sample.project" />
     <option enabledebug="False" />
     <option additional="" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
-    <library name="nme" />
-    <library name="flixel" />
+    <library name="openfl" />
   </haxelib>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="source\GameClass.hx" />
+    <!-- example: <compile path="..." /> -->
   </compileTargets>
   <!-- Assets to embed into the output SWF -->
   <library>
@@ -50,7 +50,7 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="flash" />
+    <option testMovieCommand="" />
   </options>
   <!-- Plugin storage -->
   <storage />

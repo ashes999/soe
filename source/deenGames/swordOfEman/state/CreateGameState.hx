@@ -1,0 +1,55 @@
+package deenGames.swordOfEman.state;
+
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.FlxState;
+import flixel.text.FlxText;
+import flixel.ui.FlxButton;
+import flixel.util.FlxMath;
+import flixel.util.FlxColor;
+import flixel.plugin.MouseEventManager;
+/**
+ * A FlxState which can be used for the game's menu.
+ */
+class CreateGameState extends FlxState
+{
+	/**
+	 * Function that is called up when to state is created to set it up.
+	 */
+	override public function create():Void
+	{
+		var text:FlxText = new FlxText(0, 0, "Universe #1");
+		text.setFormat(null, 72, FlxColor.WHITE);
+		add(text);
+		text.x = (FlxG.width - text.width) / 4;
+		text.y = (FlxG.height - text.height) / 3;
+		super.create();
+	}
+
+	/**
+	 * Function that is called when this state is destroyed - you might want to
+	 * consider setting all objects this state uses to null to help garbage collection.
+	 */
+	override public function destroy():Void
+	{
+		super.destroy();
+	}
+
+	/**
+	 * Function that is called once every frame.
+	 */
+	override public function update():Void
+	{
+		super.update();
+	}
+
+	private function fadeOut() : Void
+	{
+		FlxG.camera.fade(FlxColor.BLACK, 0.5, false, startGame);
+	}
+
+	private function startGame() : Void
+	{
+		//FlxG.switchState(new CoreGameState());
+	}
+}
