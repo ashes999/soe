@@ -18,8 +18,9 @@ class CreateGameState extends FlxState
 	 */
 	override public function create():Void
 	{
-		var text:FlxText = new FlxText(0, 0, "Universe #1");
-		text.setFormat(null, 72, FlxColor.WHITE);
+		var universeSeed:Int = Std.random(1000000);
+		var text:FlxText = new FlxText(0, 0, 0, "Universe #" + universeSeed);
+		text.setFormat('assets/fonts/OpenSans-Regular.ttf', 72, FlxColor.WHITE);
 		add(text);
 		text.x = (FlxG.width - text.width) / 4;
 		text.y = (FlxG.height - text.height) / 3;

@@ -18,7 +18,7 @@ class TitleScreenState extends FlxState
 	 */
 	override public function create():Void
 	{
-    var sprite:FlxSprite = new FlxSprite('assets/images/ui/title.png');
+    var sprite:FlxSprite = new FlxSprite(0, 0, 'assets/images/ui/title.png');
     add(sprite);
     sprite.x  = (FlxG.width - sprite.width) / 2;
     sprite.y = (FlxG.height - sprite.height) / 2;
