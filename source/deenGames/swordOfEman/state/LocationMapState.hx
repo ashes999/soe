@@ -24,7 +24,18 @@ class LocationMapState extends FlxState
 	 */
 	override public function create():Void
 	{
-		
+		var horizontalTiles:Int = Math.ceil(MAP_WIDTH / TILE_WIDTH);
+		var verticalTiles:Int = Math.ceil(MAP_HEIGHT / TILE_HEIGHT);
+
+		for (y in 0 ... verticalTiles) {
+			for (x in 0 ... horizontalTiles) {
+				var tile:FlxSprite = new FlxSprite(16, 16);
+				tile.loadGraphic("assets/images/top-down/outside.png", true, 32, 32);
+				tile.x = x * TILE_WIDTH;
+				tile.y = y * TILE_HEIGHT;
+				add(tile);
+			}
+		}
 		super.create();
 	}
 
