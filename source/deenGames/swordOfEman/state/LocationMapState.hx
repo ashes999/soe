@@ -11,21 +11,20 @@ import flixel.plugin.MouseEventManager;
 /**
  * A FlxState which can be used for the game's menu.
  */
-class CreateGameState extends FlxState
+class LocationMapState extends FlxState
 {
+	private static inline var TILE_WIDTH = 32;
+	private static inline var TILE_HEIGHT = 32;
+
+	private static inline var MAP_WIDTH = 1024;
+	private static inline var MAP_HEIGHT = 768;
+
 	/**
 	 * Function that is called up when to state is created to set it up.
 	 */
 	override public function create():Void
 	{
-		var universeSeed:Int = 1; //Std.random(1000000);
-		var text:FlxText = new FlxText(0, 0, 0, "Universe #" + universeSeed);
-		text.setFormat('assets/fonts/OpenSans-Regular.ttf', 72, FlxColor.WHITE);
-		add(text);
-		text.x = (FlxG.width - text.width) / 4;
-		text.y = (FlxG.height - text.height) / 3;
-
-		startGame();
+		
 		super.create();
 	}
 
@@ -44,10 +43,5 @@ class CreateGameState extends FlxState
 	override public function update():Void
 	{
 		super.update();
-	}
-
-	private function startGame() : Void
-	{
-		FlxG.switchState(new LocationMapState());
 	}
 }
