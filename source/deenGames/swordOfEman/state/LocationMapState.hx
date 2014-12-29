@@ -19,6 +19,10 @@ class LocationMapState extends FlxState
 	private static inline var MAP_WIDTH = 1024;
 	private static inline var MAP_HEIGHT = 768;
 
+	// TODO: derp?
+	private static inline var TILE_GRASS = 0;
+	private static inline var TILE_WALL = 1;
+
 	/**
 	 * Function that is called up when to state is created to set it up.
 	 */
@@ -33,6 +37,13 @@ class LocationMapState extends FlxState
 				tile.loadGraphic("assets/images/top-down/outside.png", true, 32, 32);
 				tile.x = x * TILE_WIDTH;
 				tile.y = y * TILE_HEIGHT;
+				var tileType:Int = TILE_GRASS;
+
+				if (x == 0 || x == horizontalTiles - 1 || y == 0 || y == verticalTiles - 1) {
+					tileType = TILE_WALL;
+				}
+				
+				tile.animation.frameIndex = tileType;
 				add(tile);
 			}
 		}
