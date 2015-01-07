@@ -23,6 +23,8 @@ class LocationMapState extends FlxState
 	private static inline var TILE_GRASS = 0;
 	private static inline var TILE_WALL = 1;
 
+	private static inline var PLAYER_SPRITE_FPS = 8;
+
 	/**
 	 * Function that is called up when to state is created to set it up.
 	 */
@@ -33,7 +35,7 @@ class LocationMapState extends FlxState
 
 		for (y in 0 ... verticalTiles) {
 			for (x in 0 ... horizontalTiles) {
-				var tile:FlxSprite = new FlxSprite(16, 16);
+				var tile:FlxSprite = new FlxSprite();
 				tile.loadGraphic("assets/images/map/outside.png", true, 32, 32);
 				tile.x = x * TILE_WIDTH;
 				tile.y = y * TILE_HEIGHT;
@@ -47,6 +49,20 @@ class LocationMapState extends FlxState
 				add(tile);
 			}
 		}
+
+		// TODO: determine which hero in world generation
+		var player = new FlxSprite();
+		player.loadGraphic("assets/images/map/hero-1.png", true, 32, 32);
+		player.animation.add('down', [0, 1, 2, 1], PLAYER_SPRITE_FPS, true);
+		player.animation.add('left', [3, 4, 5, 4], PLAYER_SPRITE_FPS, true);
+		player.animation.add('right', [6, 7, 8, 7], PLAYER_SPRITE_FPS, true);
+		player.animation.add('up', [9, 10, 11, 10], PLAYER_SPRITE_FPS, true);
+		player.animation.play('loop');
+		player.x = FlxG.width / 2;
+		player.y = FlxG.height / 2;
+		player.animation.play('down');
+		add(player);
+
 		super.create();
 	}
 
