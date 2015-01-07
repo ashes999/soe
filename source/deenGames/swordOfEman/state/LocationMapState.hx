@@ -34,7 +34,7 @@ class LocationMapState extends FlxState
 		for (y in 0 ... verticalTiles) {
 			for (x in 0 ... horizontalTiles) {
 				var tile:FlxSprite = new FlxSprite(16, 16);
-				tile.loadGraphic("assets/images/top-down/outside.png", true, 32, 32);
+				tile.loadGraphic("assets/images/map/outside.png", true, 32, 32);
 				tile.x = x * TILE_WIDTH;
 				tile.y = y * TILE_HEIGHT;
 				var tileType:Int = TILE_GRASS;
@@ -42,7 +42,7 @@ class LocationMapState extends FlxState
 				if (x == 0 || x == horizontalTiles - 1 || y == 0 || y == verticalTiles - 1) {
 					tileType = TILE_WALL;
 				}
-				
+
 				tile.animation.frameIndex = tileType;
 				add(tile);
 			}
