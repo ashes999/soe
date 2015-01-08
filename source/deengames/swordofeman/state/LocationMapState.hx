@@ -1,4 +1,4 @@
-package deenGames.swordOfEman.state;
+package deengames.swordofeman.state;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
