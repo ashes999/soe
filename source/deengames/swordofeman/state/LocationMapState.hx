@@ -24,6 +24,9 @@ class LocationMapState extends FlxState
 	private static inline var TILE_WALL = 1;
 
 	private static inline var PLAYER_SPRITE_FPS = 8;
+	private static inline var PLAYER_SPEED = 250;
+
+	private var player:FlxSprite = new FlxSprite();
 
 	/**
 	 * Function that is called up when to state is created to set it up.
@@ -51,7 +54,6 @@ class LocationMapState extends FlxState
 		}
 
 		// TODO: determine which hero in world generation
-		var player = new FlxSprite();
 		player.loadGraphic("assets/images/map/hero-1.png", true, 32, 32);
 		player.animation.add('down', [0, 1, 2, 1], PLAYER_SPRITE_FPS, true);
 		player.animation.add('left', [3, 4, 5, 4], PLAYER_SPRITE_FPS, true);
@@ -80,6 +82,44 @@ class LocationMapState extends FlxState
 	 */
 	override public function update():Void
 	{
+		var anythingPressed:Bool = false;
+
+		if (FlxG.keys.pressed.UP)
+		{
+			player.velocity.set(player.velocity.x, -PLAYER_SPEED);
+			anythingPressed = true;
+			player.animation.play('up');
+		}
+		else if (FlxG.keys.pressed.DOWN)
+		{
+			player.velocity.set(player.velocity.x, PLAYER_SPEED);
+			anythingPressed = true;
+			player.animation.play('down');
+		} else {
+			player.velocity.set(player.velocity.x, 0);
+		}
+
+		if (FlxG.keys.pressed.LEFT)
+		{
+			player.velocity.set(-PLAYER_SPEED, player.velocity.y);
+			anythingPressed = true;
+			player.animation.play('left');
+		}
+		else if (FlxG.keys.pressed.RIGHT)
+		{
+			player.velocity.set(PLAYER_SPEED, player.velocity.y);
+			anythingPressed = true;
+			player.animation.play('right');
+		} else {
+			player.velocity.set(0, player.velocity.y);
+		}
+
+		if (!anythingPressed) {
+			player.animation.curAnim.stop();
+			player.velocity.set(0, 0);
+		}
+
+
 		super.update();
 	}
 }
