@@ -17,7 +17,7 @@ class LocationMapState extends FlxState
 	private static inline var TILE_HEIGHT = 32;
 
 	private static inline var MAP_WIDTH = 1024;
-	private static inline var MAP_HEIGHT = 768;
+	private static inline var MAP_HEIGHT = 576;
 
 	// TODO: derp?
 	private static inline var TILE_GRASS = 0;
